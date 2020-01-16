@@ -3,20 +3,20 @@
     <div class="logo">
       <img src="~assets/img/logo.png" />
     </div>
-    <el-form :model="loginForm" ref="loginForm" class="login-form">
-      <el-form-item>
+    <el-form :model="loginForm" :rules="rules" ref="loginForm" class="login-form">
+      <el-form-item prop="username">
         <el-input v-model="loginForm.username">
-            <i slot="prefix" class="el-input__icon iconfont icon-user"></i>
+          <i slot="prefix" class="el-input__icon iconfont icon-user"></i>
         </el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="password">
         <el-input v-model="loginForm.password">
-            <i slot="prefix" class="el-input__icon iconfont icon-3702mima"></i>
+          <i slot="prefix" class="el-input__icon iconfont icon-3702mima"></i>
         </el-input>
       </el-form-item>
       <el-form-item class="login-button">
-        <el-button type="primary">登录</el-button>
-        <el-button>重置</el-button>
+        <el-button type="primary" @click="login">登录</el-button>
+        <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -27,12 +27,36 @@ export default {
   name: "Login",
   data() {
     return {
+      // 1.表单数据
       loginForm: {
-        username: "",
-        password: ""
+        username: "admin",
+        password: "123456"
+      },
+      // 2.验证规则
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 5, max: 12, message: "长度在 3 到 12 个字符", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { min: 6, max: 12, message: "长度在 3 到 5 个字符", trigger: "blur" }
+        ]
       }
     };
-  }
+  },
+  methods: {
+    // 1.重置
+    resetForm(){
+      this.$refs.loginForm.resetFields()
+    },
+    // 2.点击登录
+    login(){
+      this.$refs.loginForm.validate( (valid) => {
+        console.log(valid)
+      })
+    }
+  },
 };
 </script>
 
@@ -60,9 +84,9 @@ export default {
   }
   .login-form {
     padding: 100px 20px 0 20px;
-    .login-button{
-        display: flex;
-        justify-content: flex-end;
+    .login-button {
+      display: flex;
+      justify-content: flex-end;
     }
   }
 }
