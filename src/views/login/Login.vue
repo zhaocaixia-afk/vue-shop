@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { setSession } from 'common/utils'
 export default {
   name: "Login",
   data() {
@@ -59,6 +60,11 @@ export default {
         // console.log(res)
         if(res.meta.status !== 200) return this.$message.error("登录失败! ")
         this.$message.success('登录成功')
+        // 1.将登录成功之后的 token,保存到客户端的sessionStorage 中
+        //  1.1项目中除了登录之外的其它API接口,必须在登录之后才能访问
+        setSession("token",res.data.token)
+        // 2.跳转到后台主页
+        this.$router.push('/home')
       })
     }
   },
