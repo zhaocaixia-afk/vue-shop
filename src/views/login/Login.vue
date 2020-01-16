@@ -52,8 +52,13 @@ export default {
     },
     // 2.点击登录
     login(){
-      this.$refs.loginForm.validate( (valid) => {
-        console.log(valid)
+      this.$refs.loginForm.validate(async (valid) => {
+        // console.log(valid) //true or false
+        if(!valid) return;
+        const { data:res } = await this.$http.post('login',this.loginForm)
+        console.log(res)
+        if(res.meta.status !== 200) return console.log('登录失败')
+        console.log('登录成功')
       })
     }
   },
