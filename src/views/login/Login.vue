@@ -1,4 +1,5 @@
 <template>
+<div class="login-container">
   <div class="login">
     <div class="logo">
       <img src="~assets/img/logo.png" />
@@ -20,6 +21,8 @@
       </el-form-item>
     </el-form>
   </div>
+</div>
+  
 </template>
 
 <script>
@@ -72,7 +75,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login {
+.login-container{
+  width: 100%;
+  height: 100%;
+  background-color: aquamarine;
+  .login {
   width: 400px;
   height: 350px;
   background-color: #fff;
@@ -101,4 +108,6 @@ export default {
     }
   }
 }
+}
+
 </style>

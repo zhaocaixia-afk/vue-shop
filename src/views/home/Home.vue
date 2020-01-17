@@ -12,15 +12,15 @@
                 <div class="toggle-button" @click="collapse">|||</div>
                 <!-- 侧边栏菜单 -->
                 <!-- unique-opened只保证一个子菜单打开,collapse侧边栏开关,collapse-transition收缩动画 -->
-                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" unique-opened :collapse="isCollapse" :collapse-transition="false">
+                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" unique-opened :collapse="isCollapse" :collapse-transition="false" :router="true">
                     <!-- 一级菜单 -->
-                    <el-submenu :index="item.id + ''" v-for="(item,index) in menuList" :key="item.id">
+                    <el-submenu :index="'/'+item.path" v-for="(item,index) in menuList" :key="item.id">
                         <template slot="title">
                             <i :class="iconList[index]"></i>
                             <span>{{ item.authName }}</span>
                         </template>
                         <!-- 二级菜单 -->
-                        <el-menu-item :index="subItem.id + ''" v-show="item.children" v-for="subItem in item.children" :key="subItem.id">
+                        <el-menu-item :index="'/'+subItem.path" v-show="item.children" v-for="subItem in item.children" :key="subItem.id">
                             <template slot="title">
                                 <i class="el-icon-menu"></i>
                                 <span>{{subItem.authName}}</span>
@@ -29,7 +29,9 @@
                     </el-submenu>
                 </el-menu>
             </el-aside>
-            <el-main>Main</el-main>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
         </el-container>
     </el-container>
 </template>
