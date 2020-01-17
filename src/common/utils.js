@@ -13,3 +13,8 @@ export function getSession(key){
     } catch (e) { tem = window.sessionStorage.getItem(key); }
     return tem;
 }
+// 3.点击退出,删除
+export function clearSession(){
+    window.sessionStorage.clear()
+    return true; 
+}

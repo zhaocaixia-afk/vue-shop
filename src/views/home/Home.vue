@@ -1,12 +1,19 @@
 <template>
     <div>
-        hoem
+        <el-button type="info" @click="logout">退出</el-button>
     </div>
 </template>
 
 <script>
+import { clearSession } from 'common/utils'
     export default {
-        name: 'Home'
+        name: 'Home',
+        methods: {
+            logout(){
+                clearSession()
+                this.$router.push('/login')
+            }
+        },
     }
 </script>
 
