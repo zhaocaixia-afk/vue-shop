@@ -12,7 +12,7 @@
                 <div class="toggle-button" @click="collapse">|||</div>
                 <!-- 侧边栏菜单 -->
                 <!-- unique-opened只保证一个子菜单打开,collapse侧边栏开关,collapse-transition收缩动画 -->
-                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" unique-opened :collapse="isCollapse" :collapse-transition="false" :router="true">
+                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" unique-opened :collapse="isCollapse" :collapse-transition="false" router :default-active="$route.path">
                     <!-- 一级菜单 -->
                     <el-submenu :index="'/'+item.path" v-for="(item,index) in menuList" :key="item.id">
                         <template slot="title">
@@ -61,7 +61,7 @@ import { clearSession } from 'common/utils'
                 const { data:res } =await this.$http.get('menus')
                 if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
                 this.menuList = res.data
-                console.log(this.menuList)
+                // console.log(this.menuList)
             },
             // 3.侧边栏收缩
             collapse(){

@@ -7,6 +7,7 @@ import { getSession } from 'common/utils'
 const Login = () => import('views/login/Login')
 const Home = () => import('views/home/Home')
 const Welcome = () => import('views/home/child/Welcome')
+const Users = () => import('views/home/child/users/Users')
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,8 @@ const routes = [
     component: Home,
     redirect: '/welcome',
     children: [
-      { path: '/welcome', component: Welcome }
+      { path: '/welcome', component: Welcome },
+      { path: '/users', component: Users}
     ]
   }
 ]
