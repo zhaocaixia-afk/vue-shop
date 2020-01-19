@@ -14,7 +14,7 @@
                     </el-input>
                 </el-col>
                 <el-col :span="4">
-                    <el-button type="primary">添加用户</el-button>
+                    <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
                 </el-col>
             </el-row>
             <el-table :data="usersList" border style="width: 100%">
@@ -48,6 +48,28 @@
                 :total="total">
             </el-pagination>
         </el-card>
+
+        <!-- Dialog对话框 -->
+        <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
+            <el-form :model="addForm" :rules="addRules" ref="addFormRef" label-width="70px" class="demo-ruleForm">
+                <el-form-item label="用户名" prop="username">
+                    <el-input v-model="addForm.username"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                    <el-input v-model="addForm.password"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱" prop="email">
+                    <el-input v-model="addForm.email"></el-input>
+                </el-form-item>
+                <el-form-item label="手机" prop="mobile">
+                    <el-input v-model="addForm.mobile"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="addUser">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -55,20 +77,83 @@
     export default {
         name:'Users',
         data(){
+            // 1.自定义校验规则(邮箱和手机号)
+            var checkEmail = (rule,value,cb) => {
+                if(value === ''){
+                    cb(new Error('邮箱不能为空'))
+                }else{
+                    const regEmail = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/
+                    if(regEmail.test(value)){
+                        return cb()
+                    }
+                    cb(new Error('请输入合法的邮箱'))
+                }
+            }
+            var checkMobile = (rule,value,cb) => {
+                const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[1678]|18[0-9]|14[57])[0-9]{8}$/
+                if(regMobile.test(value)){
+                    return cb()
+                }
+                cb(new Error('请输入合法的手机号'))
+            }
             return{
+                // 1.添加用户表单
+                addForm: {
+                    username: '',
+                    password: '',
+                    email: '',
+                    mobile: ''
+                },
+                addRules: {
+                    username: [
+                        { required: true, message: "请输入用户名", trigger: "blur" },
+                        { min: 6, max: 12, message: "长度在 6 到 12 个字符", trigger: "blur" }
+                    ],
+                    password: [
+                        { required: true, message: "请输入密码", trigger: "blur" },
+                        { min: 6, max: 12, message: "长度在 6 到 12 个字符", trigger: "blur" }
+                    ],
+                    email: [
+                        { required: true, message: "请输入邮箱", trigger: "blur" },
+                        { trigger: "blur",validator: checkEmail }
+                    ],
+                    mobile: [
+                        { required: true, message: "请输入手机号", trigger: "blur" },
+                        { validator: checkMobile, trigger: "blur" }
+                    ]
+                },
                 paramsInfo: {
                     query: '',
                     pagenum: 1,
                     pagesize: 2
                 },
                 usersList: [],
-                total: 0
+                total: 0,
+                addDialogVisible: false //Dialog对话框
             }
         },
         created(){
             this.getUsersList()
         },
         methods: {
+            // 1.清空
+            addDialogClosed(){
+                this.$refs.addFormRef.resetFields()
+            },
+            // 2.添加用户
+            addUser(){
+                this.$refs.addFormRef.validate(async valid => {
+                    if(!valid) return
+                    // 发起网络请求
+                    const {data:res} = await this.$http.post('users',this.addForm)
+                    if(res.meta.status != 201){
+                        this.$message.error(res.meta.msg)
+                    }
+                    this.$message.success('添加用户成功! ')
+                    this.getUsersList()
+                    this.addDialogVisible = false
+                })
+            },
             async getUsersList(){
                 const {data:res} = await this.$http.get('/users',{ params: this.paramsInfo})
                 // console.log(res)
