@@ -1,11 +1,7 @@
 <template>
     <div class="users">
         <!-- 面包屑 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-            <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Breadcrumb :textList="breadcrumbsList"/>
         <el-card class="box-card">
             <el-row :gutter="20">
                 <el-col :span="8">
@@ -71,7 +67,6 @@
             </span>
         </el-dialog>
 
-        <!-- 调用Dialog组件 -->
         <!-- 2.修改用户 -->
         <el-dialog title="修改用户" :visible.sync="editDialogFormVisible" width="50%" @close="editDialogClosed">
             <el-form :model="editFormModel" :rules="editFormRules" ref="editForm" label-width="70px">
@@ -94,6 +89,7 @@
 </template>
 
 <script>
+import Breadcrumb from 'components/Breadcrumb'
     export default {
         name:'Users',
         data(){
@@ -117,6 +113,8 @@
                 cb(new Error('请输入合法的手机号'))
             }
             return{
+                // 3.面包屑导航数据
+                breadcrumbsList: ['用户管理','用户列表'],
                 // 2.编辑表单
                 editFormModel: {
                     id: '',
@@ -270,6 +268,9 @@
                 }
                 this.$message.success(res.meta.msg)
             }
+        },
+        components: {
+            Breadcrumb
         }
     }
 </script>
