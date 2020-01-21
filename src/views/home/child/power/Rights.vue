@@ -11,6 +11,7 @@
 <script>
 import Breadcrumb from 'components/Breadcrumb'
 import Table from 'components/Table'
+
     export default {
         name: 'Rights',
         data(){
