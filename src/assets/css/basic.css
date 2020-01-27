@@ -13,3 +13,7 @@ body{
 img{
     width: 100%;
 }
+.el-cascader-panel{
+    overflow: hidden!important;
+    height: 300px!important;
+}

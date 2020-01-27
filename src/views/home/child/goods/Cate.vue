@@ -31,7 +31,7 @@
         </el-card>
 
         <!-- 添加分类 -->
-        <el-dialog title="添加分类" :visible.sync="addCateDialogVisible" width="50%" @close="addCateDialogClosed">
+        <el-dialog title="添加分类" :visible.sync="addCateDialogVisible" width="50%" @closed="addCateDialogClosed">
             <el-form :model="addCateForm" :rules="addCateFormRules" ref="addCateFormRef" label-width="100px">
                 <el-form-item label="分类名称:" prop="cat_name">
                     <el-input v-model="addCateForm.cat_name"></el-input>
@@ -165,13 +165,6 @@ import Breadcrumb from 'components/Breadcrumb'
                     this.addCateForm.cat_pid = 0
                 }
             },
-            // 3.4.添加分类对话框关闭
-            addCateDialogClosed(){
-                this.$refs.addCateFormRef.resetFields()
-                this.selectedKeys = []
-                this.addCateForm.cat_level = 0
-                this.addCateForm.cat_pid = 0
-            },
             // 3.4.点击确定按钮
             addCate(){
                 this.$refs.addCateFormRef.validate(async valid => {
@@ -186,7 +179,14 @@ import Breadcrumb from 'components/Breadcrumb'
                     this.getCateList()
                 })
                 this.addCateDialogVisible = false
-            }
+            },
+            // 3.4.添加分类对话框关闭
+            addCateDialogClosed(){
+                this.$refs.addCateFormRef.resetFields()
+                this.selectedKeys = []
+                this.addCateForm.cat_level = 0
+                this.addCateForm.cat_pid = 0
+            },
         },
         components: {
             Breadcrumb
