@@ -155,7 +155,6 @@ import Breadcrumb from 'components/Breadcrumb'
 <style lang="scss" scoped>
 .roles{
     .el-card{
-        margin-top: 15px;
         .el-table{
             margin-top: 15px;
         }

@@ -315,7 +315,6 @@ import Breadcrumb from 'components/Breadcrumb'
 <style lang="scss" scoped>
 .params{
     .el-card{
-        margin-top: 15px;
         .el-alert{
             margin-bottom: 15px;
         }

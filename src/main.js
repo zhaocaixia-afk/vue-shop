@@ -23,6 +23,27 @@ Vue.prototype.$http = axios
 // 6.全局引入treeTable
 import TreeTable from 'vue-table-with-tree-grid'
 Vue.component('tree-table',TreeTable)
+// 7.过滤器
+// 方式一
+// Vue.filter('dateFormat',function(originVal){
+// 	const dt = new Date(originVal)
+// 	const y = dt.getFullYear()
+// 	const m = (dt.getMonth() + 1 + '').padStart(2,'0')
+// 	const d = (dt.getDate() + '').padStart(2,'0')	
+
+// 	const hh = (dt.getHours() + '').padStart(2,'0')
+// 	const mm = (dt.getMinutes() + '').padStart(2,'0')
+//   const ss = (dt.getSeconds() + '').padStart(2,'0')
+//   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+// })
+// 方式二
+import './filters'
+// 8.富文本
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+Vue.use(VueQuillEditor)
 
 Vue.config.productionTip = false
 

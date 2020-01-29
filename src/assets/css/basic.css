@@ -17,3 +17,12 @@ img{
     overflow: hidden!important;
     height: 300px!important;
 }
+.el-card{
+    margin-top: 15px;
+}
+.el-table{
+    margin-top: 15px;
+}
+.ql-editor{
+    min-height: 300px;
+}

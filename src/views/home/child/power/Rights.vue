@@ -55,8 +55,6 @@ import Table from 'components/Table'
 
 <style lang="scss" scoped>
 .rights{
-    .el-card{
-        margin-top: 15px;
-    }
+    
 }
 </style>

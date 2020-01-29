@@ -333,7 +333,6 @@ import Breadcrumb from 'components/Breadcrumb'
 <style lang="scss" scoped>
 .users{
     .box-card{
-        margin-top: 15px;
         .el-table{
             margin-top: 15px;
         }

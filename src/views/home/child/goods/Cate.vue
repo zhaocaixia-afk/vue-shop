@@ -197,7 +197,6 @@ import Breadcrumb from 'components/Breadcrumb'
 <style lang="scss" scoped>
 .cate{
     .el-card{
-        margin-top: 15px;
         .tree-table{
             margin-top: 15px;
         }
@@ -206,8 +205,4 @@ import Breadcrumb from 'components/Breadcrumb'
 .el-cascader{
     width: 100%;
 }
-// .el-popper .el-cascader__dropdown{
-//     height: 300px!important;
-//     overflow: scroll!important;
-// }
 </style>
