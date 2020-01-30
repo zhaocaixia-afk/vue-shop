@@ -26,3 +26,6 @@ img{
 .ql-editor{
     min-height: 300px;
 }
+.el-pagination{
+    margin-top: 15px;
+}
