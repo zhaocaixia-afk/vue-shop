@@ -4,6 +4,9 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 
+// 9.进度条
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // 1.引入normalize.css
 import 'normalize.css/normalize.css'
 // 2.引入全局css
@@ -16,7 +19,13 @@ axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 // 5.设置请求头,带token
 import { getSession } from 'common/utils'
 axios.interceptors.request.use(config => {
+  NProgress.start()
   config.headers.Authorization = getSession('token')
+  return config
+})
+// 响应拦截器
+axios.interceptors.response.use(config => {
+  NProgress.done()
   return config
 })
 Vue.prototype.$http = axios
@@ -44,6 +53,7 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 Vue.use(VueQuillEditor)
+
 
 Vue.config.productionTip = false
 

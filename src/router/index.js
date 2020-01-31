@@ -4,18 +4,19 @@ import VueRouter from 'vue-router'
 import { getSession } from 'common/utils'
 
 // 1.引入组件
-const Login = () => import('views/login/Login')
-const Home = () => import('views/home/Home')
-const Welcome = () => import('views/home/child/Welcome')
-const Users = () => import('views/home/child/users/Users')
-const Rights = () => import('views/home/child/power/Rights')
-const Roles = () => import('views/home/child/power/Roles')
-const Cate = () => import('views/home/child/goods/Cate')
-const Params = () => import('views/home/child/goods/Params')
-const Goods = () => import('views/home/child/goods/Goods')
-const AddGood = () => import('views/home/child/goods/AddGood')
-const Order = () => import('views/home/child/order/Order')
-const Report = () => import('views/home/child/report/Report')
+const Login = () => import(/* webpackChunkName: "login_home_welcome" */ 'views/login/Login')
+const Home = () => import(/* webpackChunkName: "login_home_welcome" */ 'views/home/Home')
+const Welcome = () => import(/* webpackChunkName: "login_home_welcome" */ 'views/home/child/Welcome')
+
+const Users = () => import(/* webpackChunkName: "user" */ 'views/home/child/users/Users')
+const Rights = () => import(/* webpackChunkName: "rights_roles" */ 'views/home/child/power/Rights')
+const Roles = () => import(/* webpackChunkName: "rights_roles" */ 'views/home/child/power/Roles')
+const Cate = () => import(/* webpackChunkName: "cate_params_goods" */ 'views/home/child/goods/Cate')
+const Params = () => import(/* webpackChunkName: "cate_params_goods" */ 'views/home/child/goods/Params')
+const Goods = () => import(/* webpackChunkName: "cate_params_goods" */ 'views/home/child/goods/Goods')
+const AddGood = () => import(/* webpackChunkName: "cate_params_goods" */ 'views/home/child/goods/AddGood')
+const Order = () => import(/* webpackChunkName: "order" */ 'views/home/child/order/Order')
+const Report = () => import(/* webpackChunkName: "report" */ 'views/home/child/report/Report')
 
 Vue.use(VueRouter)
 
