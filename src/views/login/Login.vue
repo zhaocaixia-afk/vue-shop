@@ -27,6 +27,8 @@
 
 <script>
 import { setSession } from 'common/utils'
+// import {} from ''
+import { login } from "network/login"
 export default {
   name: "Login",
   data() {
@@ -59,7 +61,8 @@ export default {
       this.$refs.loginForm.validate(async (valid) => {
         // console.log(valid) //true or false
         if(!valid) return;
-        const { data:res } = await this.$http.post('login',this.loginForm)
+        const { data:res } = await login(this.loginForm)
+        // const { data:res } = await this.$http.post('login',this.loginForm)
         // console.log(res)
         if(res.meta.status !== 200) return this.$message.error("登录失败! ")
         this.$message.success('登录成功')

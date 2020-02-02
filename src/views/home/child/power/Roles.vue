@@ -53,6 +53,13 @@
 
 <script>
 import Breadcrumb from 'components/Breadcrumb'
+import {
+    getRolesList,
+    showSetRightDialog,
+    allotRights,
+    deleteRightById
+} from 'network/power/roles'
+
     export default {
         name: 'Roles',
         data(){
@@ -73,8 +80,10 @@ import Breadcrumb from 'components/Breadcrumb'
             this.getRolesList()
         },
         methods: {
+            // 1.1.获取角色列表
             async getRolesList(){
-                const {data:res} = await this.$http.get('roles')
+                const {data:res} = await getRolesList()
+                // const {data:res} = await this.$http.get('roles')
                 // console.log(res)
                 if(res.meta.status !== 200){
                     return this.$message.error(res.meta.msg)
@@ -94,18 +103,20 @@ import Breadcrumb from 'components/Breadcrumb'
                     return this.$message.info('取消了删除')
                 }
                 // console.log('确认了删除')
-                const {data:res} = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
+                // const {data:res} = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
+                const {data:res} = await deleteRightById(role.id,rightId)
                 if(res.meta.status !== 200){
                     return this.$message.error(res.meta.msg)
                 }
                 this.$message.success(res.meta.msg)
-                // console.log(res)
+                console.log(res)
                 // this.getRolesList()
                 role.children = res.data
             },
             // 2.2.分配权限
             async showSetRightDialog(role){
-                const {data:res} = await this.$http.get('rights/tree')
+                // const {data:res} = await this.$http.get('rights/tree')
+                const {data:res} = await showSetRightDialog()
                 // console.log(res)
                 if(res.meta.status !== 200){
                     return this.$message.error(res.meta.msg)
@@ -136,7 +147,8 @@ import Breadcrumb from 'components/Breadcrumb'
                 // console.log(keys)
                 const idStr = keys.join(',')
                 // console.log(idStr)
-                const {data:res} = await this.$http.post(`roles/${this.roleId}/rights`,{ rids: idStr})
+                const {data:res} = await allotRights(this.roleId,{ rids: idStr })
+                // const {data:res} = await this.$http.post(`roles/${this.roleId}/rights`,{ rids: idStr})
                 // console.log(res)
                 if(res.meta.status !== 200){
                     return this.$message.error(res.meta.msg)

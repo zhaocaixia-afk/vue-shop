@@ -38,6 +38,8 @@
 
 <script>
 import { clearSession } from 'common/utils'
+import { getMenuList } from "network/home"
+
     export default {
         name: 'Home',
         data(){
@@ -58,7 +60,7 @@ import { clearSession } from 'common/utils'
             },
             // 2.获取aside数据
             async getMenuList(){
-                const { data:res } =await this.$http.get('menus')
+                const { data:res } =await getMenuList()
                 if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
                 this.menuList = res.data
                 // console.log(this.menuList)
@@ -67,7 +69,7 @@ import { clearSession } from 'common/utils'
             collapse(){
                 this.isCollapse = !this.isCollapse
             }
-        },
+        }
     }
 </script>
 

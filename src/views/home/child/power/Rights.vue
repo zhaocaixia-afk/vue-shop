@@ -11,6 +11,9 @@
 <script>
 import Breadcrumb from 'components/Breadcrumb'
 import Table from 'components/Table'
+import {
+    getRightsList
+} from 'network/power/rights'
 
     export default {
         name: 'Rights',
@@ -38,7 +41,8 @@ import Table from 'components/Table'
         methods: {
             // 1.权限列表
             async getRightsList(){
-                const {data:res} = await this.$http.get('rights/list')
+                const {data:res} = await getRightsList()
+                // const {data:res} = await this.$http.get('rights/list')
                 if(res.meta.status !== 200){
                     return this.$message.error(res.meta.msg)
                 }
