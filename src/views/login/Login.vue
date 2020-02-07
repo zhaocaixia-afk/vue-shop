@@ -11,7 +11,7 @@
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="loginForm.password">
+        <el-input type='password' v-model="loginForm.password">
           <i slot="prefix" class="el-input__icon iconfont icon-3702mima"></i>
         </el-input>
       </el-form-item>
@@ -27,7 +27,7 @@
 
 <script>
 import { setSession } from 'common/utils'
-// import {} from ''
+
 import { login } from "network/login"
 export default {
   name: "Login",

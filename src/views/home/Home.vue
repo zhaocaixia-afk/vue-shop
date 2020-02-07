@@ -55,8 +55,16 @@ import { getMenuList } from "network/home"
         methods: {
             // 1.退出
             logout(){
-                clearSession()
-                this.$router.push('/login')
+                this.$confirm('此操作将退出系统, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    clearSession()
+                    this.$router.push('/login')
+                }).catch(() => {
+                    this.$message.info('已取消退出')
+                })  
             },
             // 2.获取aside数据
             async getMenuList(){

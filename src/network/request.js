@@ -15,7 +15,6 @@ export function request(config){
         timeout: 5000,
         method: type,
         data: data, //对象{}
-
         // axios.get('/user', {
         //     params: {
         //       ID: 12345

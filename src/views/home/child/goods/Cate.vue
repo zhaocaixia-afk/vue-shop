@@ -153,7 +153,7 @@ import Breadcrumb from 'components/Breadcrumb'
             },
             // 3.3.级联选择器发生变化
             parentCateChanged(){
-                console.log(this.selectedKeys)
+                // console.log(this.selectedKeys)
                 if(this.selectedKeys.length > 0){
                     // 父级分类的id
                     this.addCateForm.cat_pid = this.selectedKeys[this.selectedKeys.length - 1]
